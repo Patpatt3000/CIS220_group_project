@@ -26,7 +26,7 @@ CREATE TABLE user (
 CREATE TABLE department (
     id              INT UNSIGNED    NOT NULL    AUTO_INCREMENT,
     name            VARCHAR(45)     NOT NULL,
-    manager_id      INT UNSIGNED    NOT NULL,
+    manager_id      INT UNSIGNED,
 
     PRIMARY KEY     (id),
     FOREIGN KEY     (manager_id) REFERENCES user(id)
