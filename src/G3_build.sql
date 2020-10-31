@@ -74,3 +74,13 @@ CREATE TABLE request_note (
 
     FOREIGN KEY     (request_id) REFERENCES change_request(id)
 );
+
+CREATE TABLE stakeholder_request (
+    request_id      INT UNSIGNED    NOT NULL,
+    stakeholder_id  INT UNSIGNED    NOT NULL,
+
+    PRIMARY KEY     (request_id, stakeholder_id),
+
+    FOREIGN KEY     (request_id)    REFERENCES change_request(id),
+    FOREIGN KEY     (stakeholder_id) REFERENCES user(id)
+);
