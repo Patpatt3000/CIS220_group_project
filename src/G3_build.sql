@@ -84,3 +84,53 @@ CREATE TABLE stakeholder_request (
     FOREIGN KEY     (request_id)    REFERENCES change_request(id),
     FOREIGN KEY     (stakeholder_id) REFERENCES user(id)
 );
+
+/* a few simple insertions below just as a quick experiment */
+INSERT INTO department(name)
+VALUES ('Human Resources'),
+       ('Marketing'),
+       ('Accounting'),
+       ('Research and Development'),
+       ('Business Development'),
+       ('IT'),
+       ('Trout grilling'),
+       ('Department X'),
+       ('Control'),
+       ('Blacksmithing');
+
+INSERT INTO user(department_id, first_name, last_name, email, phone)
+VALUES (6,' Anne-corinne','Bilton',   'abilton0@squidoo.com',     '850-947-3461'),
+       (1,' Casandra',    'Plowman',  'cplowman1@privacy.gov.au', '840-527-9292'),
+       (7,' Orsa',        'Dinnis',   'odinnis2@biglobe.ne.jp',   '516-185-6879'),
+       (7,' Jodi',        'Raoux',    'jraoux3@gov.uk',           '341-342-1095'),
+       (4,' Ken',         'Claydon',  'kclaydon4@nba.com',        '354-336-8754'),
+       (5,' Frederica',   'Coonan',   'fcoonan5@1688.com',        '725-863-6496'),
+       (1,' Orelle',      'Heare',    'oheare6@jiathis.com',      '952-241-4487'),
+       (2,' Henka',       'Brundill', 'hbrundill7@army.mil',      '475-792-9175'),
+       (5,' Baird',       'Belitz',   'bbelitz8@opensource.org',  '700-849-0437');
+
+UPDATE department
+SET manager_id = 1
+WHERE name = 'Human Resources';
+
+UPDATE department
+SET manager_id = 2
+WHERE name = 'Marketing';
+
+UPDATE department
+SET manager_id = 3
+WHERE name = 'Accounting';
+
+SELECT * FROM department;
+
+SELECT * FROM user;
+
+SELECT * FROM request_type;
+
+SELECT * FROM department_request_type;
+
+SELECT * FROM change_request;
+
+SELECT * FROM request_note;
+
+SELECT * FROM stakeholder_request;
