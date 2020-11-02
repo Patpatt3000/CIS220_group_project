@@ -88,7 +88,19 @@ CREATE TABLE stakeholder_request (
     FOREIGN KEY     (stakeholder_id) REFERENCES user(id)
 );
 
+/* describe all the tables during testing */
+DESCRIBE user;
+DESCRIBE department;
+DESCRIBE department_users;
+DESCRIBE request_type;
+DESCRIBE department_request_type;
+DESCRIBE change_request;
+DESCRIBE request_note;
+DESCRIBE stakeholder_request;
+
 /* a few simple insertions below just as a quick experiment */
+
+-- add some departments
 INSERT INTO department(name)
 VALUES ('Human Resources'),
        ('Marketing'),
@@ -101,6 +113,7 @@ VALUES ('Human Resources'),
        ('Control'),
        ('Blacksmithing');
 
+-- add some users
 INSERT INTO user(first_name, last_name, email, phone)
 VALUES ('Anne-corinne','Bilton',   'abilton0@squidoo.com',     '850-947-3461'),
        ('Casandra',    'Plowman',  'cplowman1@privacy.gov.au', '840-527-9292'),
@@ -112,36 +125,35 @@ VALUES ('Anne-corinne','Bilton',   'abilton0@squidoo.com',     '850-947-3461'),
        ('Henka',       'Brundill', 'hbrundill7@army.mil',      '475-792-9175'),
        ('Baird',       'Belitz',   'bbelitz8@opensource.org',  '700-849-0437');
 
+-- assign some users to departments
 INSERT INTO department_users(department_id, user_id)
-VALUES (1, 1),
-       (1, 2),
-       (2, 5),
-       (7, 3);
+VALUES (1, 1), -- Anne-corinne is in human resources
+       (1, 2), -- Casandra is in human resources too
+       (2, 2), -- Casandra is also in Marketing
+       (2, 5), -- Ken is in Marketing
+       (7, 7); -- Orelle is in the Trout Grilling department
 
+-- Anne-corinne is the manager of Human resources
 UPDATE department
 SET manager_id = 1
 WHERE name = 'Human Resources';
 
+-- Casandra manages Marketing
 UPDATE department
 SET manager_id = 2
 WHERE name = 'Marketing';
 
+-- Orsa manages Accounting
 UPDATE department
 SET manager_id = 3
 WHERE name = 'Accounting';
 
+/* show all the data in all the tables during testing */
 SELECT * FROM user;
-
 SELECT * FROM department;
-
 SELECT * FROM department_users;
-
 SELECT * FROM request_type;
-
 SELECT * FROM department_request_type;
-
 SELECT * FROM change_request;
-
 SELECT * FROM request_note;
-
 SELECT * FROM stakeholder_request;
