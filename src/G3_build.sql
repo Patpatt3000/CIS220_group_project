@@ -133,6 +133,15 @@ VALUES (1, 1), -- Anne-corinne is in human resources
        (2, 5), -- Ken is in Marketing
        (7, 7); -- Orelle is in the Trout Grilling department
 
+-- assign a user to a department using select statements
+INSERT INTO department_users(department_id, user_id)
+VALUES ((SELECT id
+         FROM department
+         WHERE name = 'IT'),
+        (SELECT id
+         FROM user
+         WHERE last_name = 'Belitz'));
+
 -- Anne-corinne is the manager of Human resources
 UPDATE department
 SET manager_id = 1
@@ -147,6 +156,13 @@ WHERE name = 'Marketing';
 UPDATE department
 SET manager_id = 3
 WHERE name = 'Accounting';
+
+-- assign a manager using a select statement
+UPDATE department
+SET manager_id = (SELECT id
+                  FROM user
+                  WHERE last_name = 'Coonan')
+WHERE name = 'Control';
 
 /* show all the data in all the tables during testing */
 SELECT * FROM user;
