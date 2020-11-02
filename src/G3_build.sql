@@ -78,7 +78,7 @@ CREATE TABLE request_note (
     FOREIGN KEY     (request_id) REFERENCES change_request(id)
 );
 
-CREATE TABLE stakeholder_request (
+CREATE TABLE request_stakeholder (
     request_id      INT UNSIGNED    NOT NULL,
     stakeholder_id  INT UNSIGNED    NOT NULL,
 
@@ -96,7 +96,7 @@ DESCRIBE request_type;
 DESCRIBE department_request_type;
 DESCRIBE change_request;
 DESCRIBE request_note;
-DESCRIBE stakeholder_request;
+DESCRIBE request_stakeholder;
 
 /* a few simple insertions below just as a quick experiment */
 
@@ -172,4 +172,4 @@ SELECT * FROM request_type;
 SELECT * FROM department_request_type;
 SELECT * FROM change_request;
 SELECT * FROM request_note;
-SELECT * FROM stakeholder_request;
+SELECT * FROM request_stakeholder;
