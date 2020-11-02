@@ -127,13 +127,37 @@ VALUES ('Anne-corinne','Bilton',   'abilton0@squidoo.com',     '850-947-3461'),
 
 -- assign some users to departments
 INSERT INTO department_users(department_id, user_id)
-VALUES (1, 1), -- Anne-corinne is in human resources
-       (1, 2), -- Casandra is in human resources too
-       (2, 2), -- Casandra is also in Marketing
-       (2, 5), -- Ken is in Marketing
-       (7, 7); -- Orelle is in the Trout Grilling department
+VALUES ((SELECT id
+         FROM department
+         WHERE name = 'Human Resources'),
+        (SELECT id
+         FROM user
+         WHERE last_name = 'Bilton'));
 
--- assign a user to a department using select statements
+INSERT INTO department_users(department_id, user_id)
+VALUES ((SELECT id
+         FROM department
+         WHERE name = 'Marketing'),
+        (SELECT id
+         FROM user
+         WHERE last_name = 'Raoux'));
+
+INSERT INTO department_users(department_id, user_id)
+VALUES ((SELECT id
+         FROM department
+         WHERE name = 'Research and Development'),
+        (SELECT id
+         FROM user
+         WHERE last_name = 'Plowman'));
+
+INSERT INTO department_users(department_id, user_id)
+VALUES ((SELECT id
+         FROM department
+         WHERE name = 'Business Development'),
+        (SELECT id
+         FROM user
+         WHERE last_name = 'Plowman'));
+
 INSERT INTO department_users(department_id, user_id)
 VALUES ((SELECT id
          FROM department
@@ -142,27 +166,38 @@ VALUES ((SELECT id
          FROM user
          WHERE last_name = 'Belitz'));
 
--- Anne-corinne is the manager of Human resources
+INSERT INTO department_users(department_id, user_id)
+VALUES ((SELECT id
+         FROM department
+         WHERE name = 'IT'),
+        (SELECT id
+         FROM user
+         WHERE last_name = 'Claydon'));
+
+-- assign some managers using a select statement
 UPDATE department
-SET manager_id = 1
+SET manager_id = (SELECT id
+                  FROM user
+                  WHERE last_name = 'Bilton')
 WHERE name = 'Human Resources';
 
--- Casandra manages Marketing
 UPDATE department
-SET manager_id = 2
-WHERE name = 'Marketing';
+SET manager_id = (SELECT id
+                  FROM user
+                  WHERE last_name = 'Plowman')
+WHERE name = 'Research and Development';
 
--- Orsa manages Accounting
-UPDATE department
-SET manager_id = 3
-WHERE name = 'Accounting';
-
--- assign a manager using a select statement
 UPDATE department
 SET manager_id = (SELECT id
                   FROM user
                   WHERE last_name = 'Coonan')
 WHERE name = 'Control';
+
+UPDATE department
+SET manager_id = (SELECT id
+                  FROM user
+                  WHERE last_name = 'Belitz')
+WHERE name = 'IT';
 
 /* show all the data in all the tables during testing */
 SELECT * FROM user;
@@ -173,3 +208,15 @@ SELECT * FROM department_request_type;
 SELECT * FROM change_request;
 SELECT * FROM request_note;
 SELECT * FROM request_stakeholder;
+
+/* show all of the users that are assigned to departments */
+SELECT
+    department.name,
+    user.first_name,
+    user.last_name
+FROM 
+    department
+JOIN 
+    department_users ON department.id = department_users.department_id
+JOIN 
+    user ON department_users.user_id = user.id;
