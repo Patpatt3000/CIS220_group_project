@@ -89,22 +89,14 @@ CREATE TABLE request_stakeholder (
 );
 
 /* describe all the tables during testing */
-\! echo "user table";
-DESCRIBE user;
-\! echo "department table";
-DESCRIBE department;
-\! echo "department_user table";
-DESCRIBE department_user;
-\! echo "request_type table";
-DESCRIBE request_type;
-\! echo "department_request_type table";
-DESCRIBE department_request_type;
-\! echo "change_request table";
-DESCRIBE change_request;
-\! echo "request_note table";
-DESCRIBE request_note;
-\! echo "request_stakeholder table";
-DESCRIBE request_stakeholder;
+DESCRIBE user \p;
+DESCRIBE department \p;
+DESCRIBE department_user \p;
+DESCRIBE request_type \p;
+DESCRIBE department_request_type \p;
+DESCRIBE change_request \p;
+DESCRIBE request_note \p;
+DESCRIBE request_stakeholder \p;
 
 /* a few simple insertions below just as a quick experiment */
 
@@ -208,25 +200,16 @@ SET manager_id = (SELECT id
 WHERE name = 'IT';
 
 /* show all the data in all the tables during testing */
-\! echo "SELECT * FROM user";
-SELECT * FROM user;
-\! echo "SELECT * FROM department";
-SELECT * FROM department;
-\! echo "SELECT * FROM department_user";
-SELECT * FROM department_user;
-\! echo "SELECT * FROM request_type";
-SELECT * FROM request_type;
-\! echo "SELECT * FROM department_request_type";
-SELECT * FROM department_request_type;
-\! echo "SELECT * FROM change_request";
-SELECT * FROM change_request;
-\! echo "SELECT * FROM request_note";
-SELECT * FROM request_note;
-\! echo "SELECT * FROM request_stakeholder";
-SELECT * FROM request_stakeholder;
+SELECT * FROM user \p;
+SELECT * FROM department \p;
+SELECT * FROM department_user \p;
+SELECT * FROM request_type \p;
+SELECT * FROM department_request_type \p;
+SELECT * FROM change_request \p;
+SELECT * FROM request_note \p;
+SELECT * FROM request_stakeholder \p;
 
 /* show all of the users that are assigned to departments */
-\! echo "users assigned to departments";
 SELECT
     department.name,
     user.first_name,
@@ -236,4 +219,4 @@ FROM
 JOIN 
     department_user ON department.id = department_user.department_id
 JOIN 
-    user ON department_user.user_id = user.id;
+    user ON department_user.user_id = user.id \p;
