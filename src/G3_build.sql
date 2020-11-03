@@ -22,7 +22,7 @@ CREATE TABLE department (
     FOREIGN KEY     (manager_id) REFERENCES user(id)
 );
 
-CREATE TABLE department_users (
+CREATE TABLE department_user (
     department_id   INT UNSIGNED    NOT NULL,
     user_id         INT UNSIGNED    NOT NULL,
 
@@ -91,7 +91,7 @@ CREATE TABLE request_stakeholder (
 /* describe all the tables during testing */
 DESCRIBE user;
 DESCRIBE department;
-DESCRIBE department_users;
+DESCRIBE department_user;
 DESCRIBE request_type;
 DESCRIBE department_request_type;
 DESCRIBE change_request;
@@ -126,7 +126,7 @@ VALUES ('Anne-corinne','Bilton',   'abilton0@squidoo.com',     '850-947-3461'),
        ('Baird',       'Belitz',   'bbelitz8@opensource.org',  '700-849-0437');
 
 -- assign some users to departments
-INSERT INTO department_users(department_id, user_id)
+INSERT INTO department_user(department_id, user_id)
 VALUES ((SELECT id
          FROM department
          WHERE name = 'Human Resources'),
@@ -134,7 +134,7 @@ VALUES ((SELECT id
          FROM user
          WHERE last_name = 'Bilton'));
 
-INSERT INTO department_users(department_id, user_id)
+INSERT INTO department_user(department_id, user_id)
 VALUES ((SELECT id
          FROM department
          WHERE name = 'Marketing'),
@@ -142,7 +142,7 @@ VALUES ((SELECT id
          FROM user
          WHERE last_name = 'Raoux'));
 
-INSERT INTO department_users(department_id, user_id)
+INSERT INTO department_user(department_id, user_id)
 VALUES ((SELECT id
          FROM department
          WHERE name = 'Research and Development'),
@@ -150,7 +150,7 @@ VALUES ((SELECT id
          FROM user
          WHERE last_name = 'Plowman'));
 
-INSERT INTO department_users(department_id, user_id)
+INSERT INTO department_user(department_id, user_id)
 VALUES ((SELECT id
          FROM department
          WHERE name = 'Business Development'),
@@ -158,7 +158,7 @@ VALUES ((SELECT id
          FROM user
          WHERE last_name = 'Plowman'));
 
-INSERT INTO department_users(department_id, user_id)
+INSERT INTO department_user(department_id, user_id)
 VALUES ((SELECT id
          FROM department
          WHERE name = 'IT'),
@@ -166,7 +166,7 @@ VALUES ((SELECT id
          FROM user
          WHERE last_name = 'Belitz'));
 
-INSERT INTO department_users(department_id, user_id)
+INSERT INTO department_user(department_id, user_id)
 VALUES ((SELECT id
          FROM department
          WHERE name = 'IT'),
@@ -202,7 +202,7 @@ WHERE name = 'IT';
 /* show all the data in all the tables during testing */
 SELECT * FROM user;
 SELECT * FROM department;
-SELECT * FROM department_users;
+SELECT * FROM department_user;
 SELECT * FROM request_type;
 SELECT * FROM department_request_type;
 SELECT * FROM change_request;
@@ -217,6 +217,6 @@ SELECT
 FROM 
     department
 JOIN 
-    department_users ON department.id = department_users.department_id
+    department_user ON department.id = department_user.department_id
 JOIN 
-    user ON department_users.user_id = user.id;
+    user ON department_user.user_id = user.id;
