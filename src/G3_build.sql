@@ -89,13 +89,21 @@ CREATE TABLE request_stakeholder (
 );
 
 /* describe all the tables during testing */
+\! echo "user table";
 DESCRIBE user;
+\! echo "department table";
 DESCRIBE department;
+\! echo "department_user table";
 DESCRIBE department_user;
+\! echo "request_type table";
 DESCRIBE request_type;
+\! echo "department_request_type table";
 DESCRIBE department_request_type;
+\! echo "change_request table";
 DESCRIBE change_request;
+\! echo "request_note table";
 DESCRIBE request_note;
+\! echo "request_stakeholder table";
 DESCRIBE request_stakeholder;
 
 /* a few simple insertions below just as a quick experiment */
@@ -200,16 +208,25 @@ SET manager_id = (SELECT id
 WHERE name = 'IT';
 
 /* show all the data in all the tables during testing */
+\! echo "SELECT * FROM user";
 SELECT * FROM user;
+\! echo "SELECT * FROM department";
 SELECT * FROM department;
+\! echo "SELECT * FROM department_user";
 SELECT * FROM department_user;
+\! echo "SELECT * FROM request_type";
 SELECT * FROM request_type;
+\! echo "SELECT * FROM department_request_type";
 SELECT * FROM department_request_type;
+\! echo "SELECT * FROM change_request";
 SELECT * FROM change_request;
+\! echo "SELECT * FROM request_note";
 SELECT * FROM request_note;
+\! echo "SELECT * FROM request_stakeholder";
 SELECT * FROM request_stakeholder;
 
 /* show all of the users that are assigned to departments */
+\! echo "users assigned to departments";
 SELECT
     department.name,
     user.first_name,
