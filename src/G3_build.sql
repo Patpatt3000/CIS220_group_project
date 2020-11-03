@@ -165,9 +165,25 @@ VALUES ((SELECT id FROM department  WHERE name      = 'Human Resources'),
 -- make some department request types
 INSERT INTO department_request_type(department_id, request_type_id)
 VALUES ((SELECT id FROM department   WHERE name        = 'Control'),
-        (SELECT id FROM request_type WHERE topic_label = 'Re-engineered grid-enabled frame'));
-
-
+        (SELECT id FROM request_type WHERE topic_label = 'Re-engineered grid-enabled frame')),
+       ((SELECT id FROM department   WHERE name        = 'Human Resources'),
+        (SELECT id FROM request_type WHERE topic_label = 'Managed clear-thinking synergy')),
+       ((SELECT id FROM department   WHERE name        = 'Marketing'),
+        (SELECT id FROM request_type WHERE topic_label = 'Re-engineered optimizing system engine')),
+       ((SELECT id FROM department   WHERE name        = 'Accounting'),
+        (SELECT id FROM request_type WHERE topic_label = 'Programmable foreground Graphical User Interface')),
+       ((SELECT id FROM department   WHERE name        = 'Research and Development'),
+        (SELECT id FROM request_type WHERE topic_label = 'Programmable contextually-based open architecture')),
+       ((SELECT id FROM department   WHERE name        = 'Business Development'),
+        (SELECT id FROM request_type WHERE topic_label = 'User-centric object-oriented success')),
+       ((SELECT id FROM department   WHERE name        = 'IT'),
+        (SELECT id FROM request_type WHERE topic_label = 'Face to face neutral encryption')),
+       ((SELECT id FROM department   WHERE name        = 'Trout grilling'),
+        (SELECT id FROM request_type WHERE topic_label = 'Persevering 24/7 synergy')),
+       ((SELECT id FROM department   WHERE name        = 'Department X'),
+        (SELECT id FROM request_type WHERE topic_label = 'Multi-layered radical groupware')),
+       ((SELECT id FROM department   WHERE name        = 'Control'),
+        (SELECT id FROM request_type WHERE topic_label = 'Synchronised intermediate interface'));
 
 -- assign some managers using a select statement
 UPDATE department
