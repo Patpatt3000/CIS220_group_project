@@ -33,7 +33,7 @@ CREATE TABLE department_user (
 
 CREATE TABLE request_type (
     id              INT UNSIGNED    NOT NULL    AUTO_INCREMENT,
-    topic_label     VARCHAR(45)     NOT NULL,
+    topic_label     VARCHAR(255)    NOT NULL,
     application     VARCHAR(45)     NOT NULL,
 
     PRIMARY KEY     (id)    
@@ -123,81 +123,68 @@ VALUES ('Anne-corinne','Bilton',   'abilton0@squidoo.com',     '850-947-3461'),
        ('Frederica',   'Coonan',   'fcoonan5@1688.com',        '725-863-6496'),
        ('Orelle',      'Heare',    'oheare6@jiathis.com',      '952-241-4487'),
        ('Henka',       'Brundill', 'hbrundill7@army.mil',      '475-792-9175'),
-       ('Baird',       'Belitz',   'bbelitz8@opensource.org',  '700-849-0437');
+       ('Baird',       'Belitz',   'bbelitz8@opensource.org',  '700-849-0437'),
+       ('Orin',        'Lemerie',  'olemerie9@cmu.edu',        '495-362-8855');
+
+-- add some request types
+INSERT INTO request_type(topic_label, application)
+VALUES ('Re-engineered grid-enabled frame',                  'Pannier'),
+       ('Managed clear-thinking synergy',                    'Latlux'),
+       ('Re-engineered optimizing system engine',            'Pannier'),
+       ('Programmable foreground Graphical User Interface',  'Voltsillam'),
+       ('Programmable contextually-based open architecture', 'Y-find'),
+       ('User-centric object-oriented success',              'It'),
+       ('Face to face neutral encryption',                   'Regrant'),
+       ('Persevering 24/7 synergy',                          'Sonsing'),
+       ('Multi-layered radical groupware',                   'Gembucket'),
+       ('Synchronised intermediate interface',               'Biodex');
 
 -- assign some users to departments
 INSERT INTO department_user(department_id, user_id)
-VALUES ((SELECT id
-         FROM department
-         WHERE name = 'Human Resources'),
-        (SELECT id
-         FROM user
-         WHERE last_name = 'Bilton'));
+VALUES ((SELECT id FROM department  WHERE name      = 'Human Resources'),
+        (SELECT id FROM user        WHERE last_name = 'Bilton')),
+       ((SELECT id FROM department  WHERE name      = 'Marketing'),
+        (SELECT id FROM user        WHERE last_name = 'Raoux')),
+       ((SELECT id FROM department  WHERE name      = 'Research and Development'),
+        (SELECT id FROM user        WHERE last_name = 'Plowman')),
+       ((SELECT id FROM department  WHERE name      = 'Business Development'),
+        (SELECT id FROM user        WHERE last_name = 'Plowman')),
+       ((SELECT id FROM department  WHERE name      = 'IT'),
+        (SELECT id FROM user        WHERE last_name = 'Belitz')),
+       ((SELECT id FROM department  WHERE name      = 'IT'),
+        (SELECT id FROM user        WHERE last_name = 'Claydon')),
+       ((SELECT id FROM department  WHERE name      = 'Accounting'),
+        (SELECT id FROM user        WHERE last_name = 'Lemerie')),
+       ((SELECT id FROM department  WHERE name      = 'Trout grilling'),
+        (SELECT id FROM user        WHERE last_name = 'Dinnis')),
+       ((SELECT id FROM department  WHERE name      = 'Department X'),
+        (SELECT id FROM user        WHERE last_name = 'Coonan')),
+       ((SELECT id FROM department  WHERE name      = 'Control'),
+        (SELECT id FROM user        WHERE last_name = 'Heare'));
 
-INSERT INTO department_user(department_id, user_id)
-VALUES ((SELECT id
-         FROM department
-         WHERE name = 'Marketing'),
-        (SELECT id
-         FROM user
-         WHERE last_name = 'Raoux'));
+-- make some department request types
+INSERT INTO department_request_type(department_id, request_type_id)
+VALUES ((SELECT id FROM department   WHERE name        = 'Control'),
+        (SELECT id FROM request_type WHERE topic_label = 'Re-engineered grid-enabled frame'));
 
-INSERT INTO department_user(department_id, user_id)
-VALUES ((SELECT id
-         FROM department
-         WHERE name = 'Research and Development'),
-        (SELECT id
-         FROM user
-         WHERE last_name = 'Plowman'));
 
-INSERT INTO department_user(department_id, user_id)
-VALUES ((SELECT id
-         FROM department
-         WHERE name = 'Business Development'),
-        (SELECT id
-         FROM user
-         WHERE last_name = 'Plowman'));
-
-INSERT INTO department_user(department_id, user_id)
-VALUES ((SELECT id
-         FROM department
-         WHERE name = 'IT'),
-        (SELECT id
-         FROM user
-         WHERE last_name = 'Belitz'));
-
-INSERT INTO department_user(department_id, user_id)
-VALUES ((SELECT id
-         FROM department
-         WHERE name = 'IT'),
-        (SELECT id
-         FROM user
-         WHERE last_name = 'Claydon'));
 
 -- assign some managers using a select statement
 UPDATE department
-SET manager_id = (SELECT id
-                  FROM user
-                  WHERE last_name = 'Bilton')
-WHERE name = 'Human Resources';
+SET manager_id = (SELECT id FROM user WHERE last_name = 'Bilton')
+                                      WHERE name      = 'Human Resources';
 
 UPDATE department
-SET manager_id = (SELECT id
-                  FROM user
-                  WHERE last_name = 'Plowman')
-WHERE name = 'Research and Development';
+SET manager_id = (SELECT id FROM user WHERE last_name = 'Plowman')
+                                      WHERE name      = 'Research and Development';
 
 UPDATE department
-SET manager_id = (SELECT id
-                  FROM user
-                  WHERE last_name = 'Coonan')
-WHERE name = 'Control';
+SET manager_id = (SELECT id FROM user WHERE last_name = 'Coonan')
+                                      WHERE name      = 'Control';
 
 UPDATE department
-SET manager_id = (SELECT id
-                  FROM user
-                  WHERE last_name = 'Belitz')
-WHERE name = 'IT';
+SET manager_id = (SELECT id FROM user WHERE last_name = 'Belitz')
+                                      WHERE name      = 'IT';
 
 /* show all the data in all the tables during testing */
 SELECT * FROM user \p;
