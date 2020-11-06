@@ -67,11 +67,11 @@ CREATE TABLE request_note (
     id              INT UNSIGNED    NOT NULL    AUTO_INCREMENT,
     request_id      INT UNSIGNED    NOT NULL,
     description     VARCHAR(255),
-    date_stamp      DATETIME        NOT NULL,
-    is_open         BOOLEAN         NOT NULL,
-    is_complete     BOOLEAN         NOT NULL,
+    is_open         BOOLEAN         NOT NULL    DEFAULT 1,
+    is_complete     BOOLEAN         NOT NULL    DEFAULT 0,
     closed_notes    VARCHAR(255),
     complete_notes  VARCHAR(255),
+    time_stamp      TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     PRIMARY KEY     (id),
 
@@ -214,6 +214,32 @@ VALUES (7,1,  'Open-architected foreground local area network','2021-05-26 16:48
        (9,1,  'Up-sized asymmetric portal','2021-04-19 04:49:19'),
        (7,2,  'Innovative modular initiative','2020-09-25 00:29:35'),
        (9,4,  'Devolved dynamic superstructure','2020-11-23 07:05:47');
+
+-- insert some request notes
+INSERT INTO request_note(request_id, description)
+VALUES(10, 'ipsum primis in faucibus orci luctus et ultrices'),
+      (1,  'congue elementum in hac habitasse'),
+      (5,  'faucibus accumsan odio curabitur convallis duis consequat dui nec'),
+      (4,  'consequat metus sapien ut nunc vestibulum ante'),
+      (8,  'pretium iaculis justo in hac habitasse platea'),
+      (4,  'id luctus nec molestie sed justo pellentesque viverra'),
+      (6,  'nulla quisque arcu libero rutrum ac lobortis'),
+      (1,  'semper interdum mauris ullamcorper purus sit amet nulla'),
+      (2,  'curabitur gravida nisi at nibh'),
+      (3,  'diam erat fermentum justo nec');
+
+-- insert some request stakeholders
+INSERT INTO request_stakeholder(request_id, stakeholder_id)
+VALUES(5,4),
+      (7,6),
+      (8,2),
+      (5,5),
+      (8,1),
+      (10,10),
+      (1,7),
+      (6,10),
+      (2,7),
+      (2,9);
 
 /* show all the data in all the tables during testing */
 SELECT * FROM user \p;
