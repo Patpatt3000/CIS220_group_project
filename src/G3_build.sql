@@ -53,9 +53,9 @@ CREATE TABLE change_request (
     user_id         INT UNSIGNED    NOT NULL,
     request_type_id INT UNSIGNED    NOT NULL,
     description     VARCHAR(255)    NOT NULL,
-    data_stamp      DATETIME        NOT NULL,
-    is_approved     BOOLEAN         NOT NULL,
+    is_approved     BOOLEAN         NOT NULL    DEFAULT 0,
     due_date        DATETIME,
+    time_stamp      TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     PRIMARY KEY     (id),
 
@@ -201,6 +201,19 @@ SET manager_id = (SELECT id FROM user WHERE last_name = 'Coonan')
 UPDATE department
 SET manager_id = (SELECT id FROM user WHERE last_name = 'Belitz')
                                       WHERE name      = 'IT';
+
+-- insert some change requests
+INSERT INTO change_request(user_id, request_type_id, description, due_date)
+VALUES (7,1,  'Open-architected foreground local area network','2021-05-26 16:48:25'),
+       (1,3,  'Cloned asymmetric intranet','2021-08-30 09:12:53'),
+       (7,2,  'Total responsive protocol','2021-09-22 15:34:56'),
+       (8,7,  'Decentralized uniform encryption','2020-03-08 03:59:14'),
+       (5,2,  'Triple-buffered tangible architecture','2021-06-12 23:18:41'),
+       (9,1,  'Exclusive systematic internet solution','2021-01-31 14:09:04'),
+       (1,10, 'Reduced 24/7 protocol','2021-03-08 19:19:36'),
+       (9,1,  'Up-sized asymmetric portal','2021-04-19 04:49:19'),
+       (7,2,  'Innovative modular initiative','2020-09-25 00:29:35'),
+       (9,4,  'Devolved dynamic superstructure','2020-11-23 07:05:47');
 
 /* show all the data in all the tables during testing */
 SELECT * FROM user \p;
