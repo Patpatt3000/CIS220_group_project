@@ -251,9 +251,9 @@ SELECT * FROM change_request \p;
 SELECT * FROM request_note \p;
 SELECT * FROM request_stakeholder \p;
 
-/* show all of the users that are assigned to departments */
+SELECT 'All of the users that are assigned to departments' AS '';
 SELECT
-    department.name,
+    department.name AS dept_name,
     user.first_name,
     user.last_name
 FROM 
@@ -261,4 +261,36 @@ FROM
 JOIN 
     department_user ON department.id = department_user.department_id
 JOIN 
-    user ON department_user.user_id = user.id \p;
+    user ON department_user.user_id = user.id;
+
+SELECT 'All of the requests and their due dates for the IT department' AS '';
+SELECT
+    d.name AS dept_name,
+    cr.description AS request_description,
+    cr.due_date
+FROM
+    change_request AS cr
+JOIN
+    request_type AS rt ON cr.request_type_id = rt.id
+JOIN
+    department_request_type AS drt ON rt.id = drt.request_type_id
+JOIN
+    department AS d ON d.id = drt.department_id
+WHERE
+    d.name = 'IT';
+
+SELECT 'All of the names of the stakeholders for change requests submitted by Bilton' AS '';
+SELECT
+    stakeholder.first_name,
+    stakeholder.last_name,
+    stakeholder.email
+FROM
+    user AS stakeholder
+JOIN
+    request_stakeholder AS rs ON stakeholder.id = rs.stakeholder_id
+JOIN
+    change_request AS cr ON rs.request_id = cr.id
+JOIN
+    user AS u ON cr.user_id = u.id
+WHERE
+    u.last_name = 'Bilton';
