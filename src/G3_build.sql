@@ -294,3 +294,44 @@ JOIN
     user AS u ON cr.user_id = u.id
 WHERE
     u.last_name = 'Bilton';
+         
+         
+-- additional SELECTs
+-- Find closed notes per request_id, by what stakeholder(s)
+USE g3_build;
+SELECT cr.id AS RequestNumber, rq.closed_notes AS ClosedComments, CONCAT(u.first_name,' ',u.last_name) AS ClosedBy
+FROM request_note AS rq
+INNER JOIN change_request AS cr 
+	ON rq.request_id = cr.id
+INNER JOIN request_stakeholder AS rs 
+	ON cr.id = rs.request_id
+INNER JOIN user AS u 
+	ON rs.stakeholder_id = u.id
+WHERE rs.request_id = 8
+AND rq.closed_notes IS NOT NULL;
+       
+         
+-- Find department manager and stakeholder with request(s)
+USE g3_build;
+SELECT *
+FROM
+	(SELECT CONCAT(u.first_name,' ',u.last_name) AS Manager
+	FROM user AS u
+	INNER JOIN department AS d ON u.id = d.manager_id)
+AS Manager,
+	(SELECT d.name AS Department, CONCAT(u.first_name,' ',u.last_name) AS Employee, cr.id AS RequestNumber, cr.description AS Description
+	FROM department AS d
+	INNER JOIN user AS u ON d.manager_id = u.id
+	INNER JOIN request_stakeholder AS rs ON u.id = rs.stakeholder_id
+	INNER JOIN change_request AS cr ON rs.request_id = cr.id)
+AS Assigned;
+         
+         
+-- View how many request an employee has
+USE g3_build;
+SELECT CONCAT(u.first_name,' ',u.last_name) AS Employee, COUNT(rs.request_id) AS RequestAmount
+FROM user AS u
+INNER JOIN request_stakeholder AS rs ON u.id = rs.stakeholder_id
+INNER JOIN change_request AS cr ON rs.request_id = cr.id
+-- INNER JOIN request_type AS rt ON cr.request_type_id = rt.id
+GROUP BY rs.stakeholder_id;
